@@ -1,0 +1,59 @@
+<mvc:View controllerName="worklist.app.BusinessITProject-WorklistApp.controller.Object" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false" busy="{objectView>/busy}"
+		busyIndicatorDelay="{objectView>/delay}">
+		<semantic:titleHeading>
+			<Title id="_IDEGen_title0" text="{ProductName}" level="H2"/>
+		</semantic:titleHeading>
+		<semantic:headerContent>
+			<FlexBox id="_IDEGen_flexbox0" alignItems="Start" justifyContent="SpaceBetween">
+				<Panel id="_IDEGen_panel0" backgroundDesign="Transparent">
+					<ObjectAttribute id="_IDEGen_objectattribute0" title="{i18n>ObjectProductIdText}"
+						text="{ path: 'ProductID', formatter: '.formatter.numberUnit'}"/>
+					<ObjectAttribute id="_IDEGen_objectattribute1" title="{i18n>ObjectPriceTitle}"
+						text="{ path: 'UnitPrice', formatter: '.formatter.numberUnit'} EUR"/>
+				</Panel>
+				<Panel id="_IDEGen_panel1" backgroundDesign="Transparent">
+					<ObjectNumber id="objectHeader" unit="PC" textAlign="End" state="{ path: 'UnitsInStock', formatter: '.formatter.quantityState'}"
+						number="{ path: 'UnitsInStock', formatter: '.formatter.numberUnit'}"></ObjectNumber>
+					<ObjectStatus id="_IDEGen_objectstatus0" text="{i18n>ObjectDiscontinuedStatusText}" state="Error" visible="{path:'Discontinued'}"/>
+					<ProgressIndicator id="_IDEGen_progressindicator0" width="300px" percentValue="{UnitsInStock}" displayValue="{UnitsInStock}"
+						showValue="true" state="{ path: 'UnitsInStock', formatter: '.formatter.quantityState'}"/>
+				</Panel>
+			</FlexBox>
+		</semantic:headerContent>
+		<semantic:content>
+			<l:VerticalLayout id="_IDEGen_verticallayout0" width="100%">
+				<Panel id="_IDEGen_panel2" backgroundDesign="Transparent" headerText="{i18n>ObjectSupplierTabTitle}">
+					<content>
+						<form:SimpleForm title="Form" id="_IDEGen_simpleform0" minWidth="1024" maxContainerCols="2" editable="false" layout="ResponsiveGridLayout"
+							labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
+							<form:content>
+								<Label id="_IDEGen_label0" text="{i18n>ObjectSupplierName}"/>
+								<Text id="_IDEGen_text0" text="{Supplier/CompanyName}"/>
+								<Label id="_IDEGen_label1" text="{i18n>ObjectSupplierAddress}"/>
+								<Text id="_IDEGen_text1" text="{Supplier/Address}"/>
+								<Label id="_IDEGen_label2" text="{i18n>ObjectSupplierZipcode} / {i18n>ObjectSupplierCity}"/>
+								<Text id="_IDEGen_text2" text="{Supplier/PostalCode} / {Supplier/City}"/>
+								<Label id="_IDEGen_label3" text="{i18n>ObjectSupplierCountry}"/>
+								<Text id="_IDEGen_text3" text="{Supplier/Country}"/>
+							</form:content>
+						</form:SimpleForm>
+					</content>
+				</Panel>
+				<Panel id="_IDEGen_panel3" backgroundDesign="Transparent" headerText="{i18n>ObjectCommentsTabTitle}">
+					<content>
+						<FeedInput id="_IDEGen_feedinput0" post=".onPost"/>
+						<List id="idCommentsList" noDataText="{i18n>ObjectCommentNoData}" showSeparators="Inner"
+							items="{ path: 'productFeedback>/productComments', sorter: { path: 'date', descending: true } }">
+							<FeedListItem id="_IDEGen_feedlistitem0" info="{productFeedback>type}" text="{productFeedback>comment}" timestamp="{productFeedback>date}"/>
+						</List>
+					</content>
+				</Panel>
+			</l:VerticalLayout>
+		</semantic:content>
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
+		</semantic:sendEmailAction>
+	</semantic:SemanticPage>
+</mvc:View>
